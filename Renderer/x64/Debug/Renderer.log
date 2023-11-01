@@ -1,0 +1,4 @@
+﻿  Color.cpp
+  Matrix.cpp
+C:\Users\u1482656\Renderer\Renderer\Matrix.cpp(15,14): error C2166: l-value specifies const object
+  Generating Code...
