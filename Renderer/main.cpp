@@ -1,4 +1,6 @@
 ﻿#include <windows.h>
+#include <string>
+#include "ReadObjFile.h"
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     //Handle msg
@@ -50,6 +52,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 
     ShowWindow(hwnd, nShowCmd);
     UpdateWindow(hwnd);
+    
+    LPCWSTR a = L"balblabal";
+    OutputDebugString(a);
+    cout << "is here" << endl;
+    ReadObjFile("Models/Cube.obj");
 
     //Main message loop
     //define msg structure
@@ -62,7 +69,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
         }
         //Render window
         else {
-
+         
         }
     }
 

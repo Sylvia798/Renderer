@@ -10,8 +10,8 @@ public:
 	Matrix operator+ (const Matrix& other) const;
 	Matrix operator* (const Matrix& other) const;
 	Matrix operator* (float k) const;
-	Matrix();
-	~Matrix();
+	//Matrix();
+	//~Matrix();
 
 private:
 

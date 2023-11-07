@@ -20,7 +20,8 @@ public:
 	Vector3<T> static Cross(const Vector3<T>& left, const Vector3<T>& right);
 	Vector3<T> Cross(const Vector3<T>& other);
 	Vector3(T fx, T fy, T fz, T fw);
-	~Vector3();
+	Vector3(T fx, T fy, T fz);
+	//~Vector3();
 
 private:
 
@@ -36,6 +37,15 @@ Vector3<T>::Vector3(T fx, T fy, T fz, T fw)
 	y = fy;
 	z = fz;
 	w = fw;
+}
+
+template<class T>
+Vector3<T>::Vector3(T fx, T fy, T fz)
+{
+	x = fx;
+	y = fy;
+	z = fz;
+	w = 1;
 }
 
 template<class T>
@@ -105,7 +115,7 @@ public:
 	float x, y;
 
 	Vector2(float u, float v) : x(u), y(v) {}
-	~Vector2();
+	//~Vector2();
 
 private:
 

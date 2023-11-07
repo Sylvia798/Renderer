@@ -1,2 +1,5 @@
 C:\Users\u1482656\Renderer\Renderer\Color.cpp;C:\Users\u1482656\Renderer\Renderer\x64\Debug\Color.obj
 C:\Users\u1482656\Renderer\Renderer\main.cpp;C:\Users\u1482656\Renderer\Renderer\x64\Debug\main.obj
+C:\Users\u1482656\Renderer\Renderer\Matrix.cpp;C:\Users\u1482656\Renderer\Renderer\x64\Debug\Matrix.obj
+C:\Users\u1482656\Renderer\Renderer\Mesh.cpp;C:\Users\u1482656\Renderer\Renderer\x64\Debug\Mesh.obj
+C:\Users\u1482656\Renderer\Renderer\ReadObjFile.cpp;C:\Users\u1482656\Renderer\Renderer\x64\Debug\ReadObjFile.obj
