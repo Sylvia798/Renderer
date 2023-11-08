@@ -1,6 +1,10 @@
 ﻿#include <windows.h>
 #include <string>
+#include <iostream>
 #include "ReadObjFile.h"
+
+void GenerateConsole();
+Mesh mesh;
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     //Handle msg
@@ -52,11 +56,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 
     ShowWindow(hwnd, nShowCmd);
     UpdateWindow(hwnd);
+
+    GenerateConsole();
     
-    LPCWSTR a = L"balblabal";
-    OutputDebugString(a);
     cout << "is here" << endl;
-    ReadObjFile("Models/Cube.obj");
+    ReadObjFile("C:\\Users\\u1482656\\Renderer\\Models\\Cube.obj", mesh);
 
     //Main message loop
     //define msg structure
@@ -74,4 +78,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
     }
 
 	return 0;
+}
+
+
+void GenerateConsole()
+{
+    AllocConsole();
+    FILE* file;
+    freopen_s(&file, "CONOUT$", "w", stdout);
 }

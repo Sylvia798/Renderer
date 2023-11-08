@@ -132,12 +132,14 @@
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="ReadObjFile.cpp" />
+    <ClCompile Include="Render.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Color.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="ReadObjFile.h" />
+    <ClInclude Include="Render.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Vertex.h" />

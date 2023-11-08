@@ -1,6 +1,9 @@
 #pragma once
+#include <iostream>
 #include <cmath>
 #include <windows.h>
+
+using namespace std;
 
 template<class T>
 class Vector3
@@ -21,6 +24,7 @@ public:
 	Vector3<T> Cross(const Vector3<T>& other);
 	Vector3(T fx, T fy, T fz, T fw);
 	Vector3(T fx, T fy, T fz);
+	void Print();
 	//~Vector3();
 
 private:
@@ -108,6 +112,12 @@ float Vector3<T>::Dot(const Vector3<T>& other)
 	return x * other.x + y * other.y + z * other.z;
 }
 
+template<class T>
+void Vector3<T>::Print()
+{
+	cout << "x:" << x << "  y:" << y << "  z:" << z << endl;
+}
+
 
 class Vector2
 {
@@ -115,6 +125,10 @@ public:
 	float x, y;
 
 	Vector2(float u, float v) : x(u), y(v) {}
+	void Print()
+	{
+		cout << "x:" << x << "  y:" << y << endl;
+	}
 	//~Vector2();
 
 private:
