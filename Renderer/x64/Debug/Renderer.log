@@ -1,3 +1,2 @@
-﻿  ReadObjFile.cpp
-C:\Users\u1482656\Renderer\Renderer\ReadObjFile.cpp(12,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Renderer.vcxproj -> C:\Users\u1482656\Renderer\x64\Debug\Renderer.exe
+﻿  Render.cpp
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(21): error C4716: 'CalculateBoundingBox': must return a value

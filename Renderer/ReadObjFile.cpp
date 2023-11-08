@@ -6,7 +6,6 @@
 
 using namespace std;
 
-//TODO NEED TEST
 void SplitString(string s, char splitSymbol, vector<string>& vec, bool needIgnoreFirst)
 {
 	int length = s.length();
