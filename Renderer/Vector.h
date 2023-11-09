@@ -56,10 +56,10 @@ template<class T>
 Vector3<T> Vector3<T>::operator+ (const Vector3<T>& other) const
 {
 	Vector3<T> returnValue;
-	returnValue.x += other.x;
-	returnValue.y += other.y;
-	returnValue.z += other.z;
-	returnValue.w += other.w;
+	returnValue.x = x + other.x;
+	returnValue.y = y + other.y;
+	returnValue.z = z + other.z;
+	returnValue.w = w + other.w;
 	return returnValue;
 }
 
@@ -67,10 +67,10 @@ template<class T>
 Vector3<T> Vector3<T>::operator- (const Vector3<T>& other) const
 {
 	Vector3<T> returnValue;
-	returnValue.x -= other.x;
-	returnValue.y -= other.y;
-	returnValue.z -= other.z;
-	returnValue.w -= other.w;
+	returnValue.x = x + other.x;
+	returnValue.y = y + other.y;
+	returnValue.z = z + other.z;
+	returnValue.w = w + other.w;
 	return returnValue;
 }
 
@@ -129,8 +129,27 @@ public:
 	{
 		cout << "x:" << x << "  y:" << y << endl;
 	}
+
+	Vector2 operator +(const Vector2& value) const;
+	Vector2 operator -(const Vector2& value) const;
+
+	float static Dot(const Vector2& left, const Vector2& right);
+
 	//~Vector2();
 
 private:
 
 };
+
+
+Vector2 Vector2::operator +(const Vector2& value) const
+{
+	Vector2 returnValue(x + value.x, y + value.y);
+	return returnValue;
+}
+
+Vector2 Vector2::operator -(const Vector2& value) const
+{
+	Vector2 returnValue(x - value.x, y - value.y);
+	return returnValue;
+}
