@@ -135,6 +135,9 @@ public:
 
 	float static Dot(const Vector2& left, const Vector2& right);
 
+	//Output is a vector(0,0,ax-by, ay-bx), so we only need to see the z result
+	float static Cross(const Vector2& left, const Vector2& right);
+
 	//~Vector2();
 
 private:
@@ -152,4 +155,9 @@ Vector2 Vector2::operator -(const Vector2& value) const
 {
 	Vector2 returnValue(x - value.x, y - value.y);
 	return returnValue;
+}
+
+float Vector2::Cross(const Vector2& left, const Vector2& right)
+{
+	return left.x * right.y - left.y * right.x;
 }
