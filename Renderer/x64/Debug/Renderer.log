@@ -1,17 +1,7 @@
-﻿  main.cpp
-  Matrix.cpp
-  ReadObjFile.cpp
-C:\Users\u1482656\Renderer\Renderer\ReadObjFile.cpp(11,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Render.cpp
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(14,15): warning C4002: too many arguments for function-like macro invocation 'min'
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(15,15): warning C4002: too many arguments for function-like macro invocation 'min'
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(16,15): warning C4002: too many arguments for function-like macro invocation 'min'
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(17,15): warning C4002: too many arguments for function-like macro invocation 'min'
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(25,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(26,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
-  LINK : C:\Users\u1482656\Renderer\x64\Debug\Renderer.exe not found or not built by the last incremental link; performing full link
-Matrix.obj : error LNK2005: "public: class Vector2 __cdecl Vector2::operator+(class Vector2 const &)const " (??HVector2@@QEBA?AV0@AEBV0@@Z) already defined in main.obj
-ReadObjFile.obj : error LNK2005: "public: class Vector2 __cdecl Vector2::operator+(class Vector2 const &)const " (??HVector2@@QEBA?AV0@AEBV0@@Z) already defined in main.obj
-Render.obj : error LNK2005: "public: class Vector2 __cdecl Vector2::operator+(class Vector2 const &)const " (??HVector2@@QEBA?AV0@AEBV0@@Z) already defined in main.obj
-C:\Users\u1482656\Renderer\x64\Debug\Renderer.exe : fatal error LNK1169: one or more multiply defined symbols found
+﻿  Render.cpp
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(31,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(32,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(34,18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(35,18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(48,22): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Renderer.vcxproj -> C:\Users\u1482656\Renderer\x64\Debug\Renderer.exe

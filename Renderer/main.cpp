@@ -1,10 +1,22 @@
 ﻿#include <windows.h>
 #include <string>
 #include <iostream>
+
 #include "ReadObjFile.h"
+#include "Render.h"
+
+using namespace std;
+
+static const int screenHeight = 800;
+static const int screenWidth = 1500;
+
+HDC hdc;
+Mesh mesh;
+Camera camera;
+Renderer * renderer;
 
 void GenerateConsole();
-Mesh mesh;
+void Render();
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     //Handle msg
@@ -56,11 +68,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 
     ShowWindow(hwnd, nShowCmd);
     UpdateWindow(hwnd);
+    hdc = GetDC(hwnd);
 
     GenerateConsole();
     
-    cout << "is here" << endl;
     ReadObjFile("C:\\Users\\u1482656\\Renderer\\Models\\Cube.obj", mesh);
+    Render();
 
     //Main message loop
     //define msg structure
@@ -73,11 +86,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
         }
         //Render window
         else {
-         
+            
         }
     }
 
 	return 0;
+}
+
+
+void Render()
+{
+    renderer = new Renderer(hdc, screenWidth, screenHeight, camera);
+    renderer->DrawMesh();
+    cout << "is here" << endl;
 }
 
 
