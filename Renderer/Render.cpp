@@ -31,28 +31,38 @@ void Renderer::DrawMesh()
 	int XCount = (maxX - minX) / 1;
 	int YCount = (maxY - minY) / 1;
 
-	int currentXPos = minX / 1;
-	int currentYPos = minY / 1;
+	Vector2 currentPos(minX / 1, minY / 1);
 
 	Vector2 triVec_1 = testTriangle[1] - testTriangle[0];
 	Vector2 triVec_2 = testTriangle[2] - testTriangle[1];
 	Vector2 triVec_3 = testTriangle[0] - testTriangle[2];
 
-	cout << maxX << endl;
-	cout << maxY << endl;
-	cout << XCount << endl;
+	cout << triVec_1 << endl;
+	cout << triVec_2 << endl;
+	cout << triVec_3 << endl;
 	cout << YCount << endl;
 
 	for (int i = 0; i < XCount; i++)
 	{
-		currentYPos = minY / 1;
+		currentPos.y = minY / 1;
 		for (int j = 0; j < YCount; j++)
 		{
 			// Use cross to see if the point is inside the triangle
-			currentYPos += 1;
-			SetPixel(screenHDC, currentXPos, currentYPos, RGB(0, 255, 255));
+			Vector2 Vec_1 = currentPos - testTriangle[0];
+			Vector2 Vec_2 = currentPos - testTriangle[1];
+			Vector2 Vec_3 = currentPos - testTriangle[2];
+
+			currentPos.y += 1;
+			//cout << Vector2::Cross(Vec_1, triVec_1) << endl;
+			//cout << Vector2::Cross(Vec_2, triVec_2) << endl;
+			//cout << Vector2::Cross(Vec_3, triVec_3) << endl;
+			if (Vector2::Cross(Vec_1, triVec_1) * Vector2::Cross(Vec_2, triVec_2) > 0
+				&& Vector2::Cross(Vec_1, triVec_1) * Vector2::Cross(Vec_3, triVec_3) > 0)
+			{
+				SetPixel(screenHDC, (int)currentPos.x, (int)currentPos.y, RGB(0, 255, 255));
+			}
 		}
-		currentXPos += 1;
+		currentPos.x += 1;
 	}
 
 	//currentXPos = 0;

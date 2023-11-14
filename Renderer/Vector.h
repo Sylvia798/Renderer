@@ -132,6 +132,7 @@ public:
 
 	Vector2 operator +(const Vector2& value) const;
 	Vector2 operator -(const Vector2& value) const;
+	friend ostream& operator <<(ostream& os, const Vector2& value);
 
 	float static Dot(const Vector2& left, const Vector2& right);
 

@@ -1,7 +1,4 @@
 ﻿  Render.cpp
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(31,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(32,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(34,18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(35,18): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(48,22): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  Renderer.vcxproj -> C:\Users\u1482656\Renderer\x64\Debug\Renderer.exe
+D:\Portfolio\Renderer\Renderer\Render.cpp(31,13): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Portfolio\Renderer\Renderer\Render.cpp(32,13): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+  Renderer.vcxproj -> D:\Portfolio\Renderer\x64\Debug\Renderer.exe
