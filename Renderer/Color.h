@@ -1,9 +1,11 @@
 #pragma once
+#include "Vector.h"
 class Color
 {
 public:
 	float r, g, b, a;
 	Color(float cr, float cg, float cb, float ca);
+	Color(Vector3f col) :r(col.x), g(col.y), b(col.z), a(1.0) {}
 	Color();
 	~Color();
 

@@ -2,6 +2,7 @@
 #include <vector>
 #include "Vector.h"
 #include "Camera.h"
+#include "Mesh.h"
 
 using namespace std;
 class Renderer
@@ -15,6 +16,8 @@ public:
 	Camera camera;
 
 	Renderer(HDC hdc, int screenWidth, int screenHeight, Camera camera);
-	void DrawMesh();
+	void DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> index);
+	void DrawPixel(int x, int y, COLORREF color);
+	void DrawMesh(const Mesh* mesh);
 	void DrawLine();
 };

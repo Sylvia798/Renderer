@@ -72,7 +72,7 @@ void ReadObjFile(string FilePath, Mesh& mesh)
 				{
 					subTmpData.clear();
 					SplitString(tmpData[i], '/', subTmpData, false);
-					Vector3i faceVertexIndex(stoi(subTmpData[0]), stoi(subTmpData[1]), stoi(subTmpData[2]));
+					Vector3i faceVertexIndex(stoi(subTmpData[0])-1, stoi(subTmpData[1])-1, stoi(subTmpData[2])-1);
 					faceVertexIndex.Print();
 					faces.push_back(faceVertexIndex);
 				}

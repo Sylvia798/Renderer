@@ -2,7 +2,7 @@
 
 using namespace std;
 
-vector<Vector2> testTriangle;
+vector<Vector2> currentTriangle;
 
 Renderer::Renderer(HDC hdc, int screenWidth, int screenHeight, Camera camera)
 	: screenHDC(hdc), screenWidth(screenWidth), screenHeight(screenHeight), camera(camera)
@@ -10,21 +10,47 @@ Renderer::Renderer(HDC hdc, int screenWidth, int screenHeight, Camera camera)
 
 }
 
+void Renderer::DrawMesh(const Mesh* mesh)
+{
+	int faceCount = mesh->faceBuffer.size();
+	vector<Vector2> triangleVertexs;
+	for (int i = 0; i < faceCount; i++)
+	{
+		triangleVertexs.clear();
+		for (int j = 0; j < 3; j++)
+		{
+			DrawSingleMesh(mesh, mesh->faceBuffer[i]);
+		}
+	}
+}
 
-void Renderer::DrawMesh()
+void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVertexIndex)
 {
 	//TEST DATA
-	testTriangle.push_back(Vector2(-10, 10));
-	testTriangle.push_back(Vector2(0, 100));
-	testTriangle.push_back(Vector2(100, 0));
+	currentTriangle.push_back(Vector2(-10, 10));
+	currentTriangle.push_back(Vector2(0, 100));
+	currentTriangle.push_back(Vector2(100, 0)); 
+	
+	Vector2 vec1(mesh->positionBuffer[faceVertexIndex[0].x].x, mesh->positionBuffer[faceVertexIndex[0].x].y);
+	Vector2 vec2(mesh->positionBuffer[faceVertexIndex[1].x].x, mesh->positionBuffer[faceVertexIndex[1].x].y);
+	Vector2 vec3(mesh->positionBuffer[faceVertexIndex[2].x].x, mesh->positionBuffer[faceVertexIndex[2].x].y);
+
+	cout << faceVertexIndex[0].x << endl;
+	cout << mesh->positionBuffer[faceVertexIndex[0].x] << endl;
+	cout << mesh->positionBuffer[faceVertexIndex[0].x].x << endl;
+
+	currentTriangle.clear();
+	currentTriangle.push_back(vec1);
+	currentTriangle.push_back(vec2);
+	currentTriangle.push_back(vec3);
 
 	//Calculate the minimum bounding box of a triangle
-	float minX = min(min(testTriangle[0].x, testTriangle[1].x), testTriangle[2].x);
-	float minY = min(min(testTriangle[0].y, testTriangle[1].y), testTriangle[2].y);
-	float maxX = max(max(testTriangle[0].x, testTriangle[1].x), testTriangle[2].x);
-	float maxY = max(max(testTriangle[0].y, testTriangle[1].y), testTriangle[2].y);
+	float minX = min(min(currentTriangle[0].x, currentTriangle[1].x), currentTriangle[2].x);
+	float minY = min(min(currentTriangle[0].y, currentTriangle[1].y), currentTriangle[2].y);
+	float maxX = max(max(currentTriangle[0].x, currentTriangle[1].x), currentTriangle[2].x);
+	float maxY = max(max(currentTriangle[0].y, currentTriangle[1].y), currentTriangle[2].y);
 	
-	cout << testTriangle[0].x << "   " << testTriangle[1].x  << "   " << testTriangle[2].x << endl;
+	cout << currentTriangle[0].x << "   " << currentTriangle[1].x  << "   " << currentTriangle[2].x << endl;
 
 
 	//Scan the pixels inside bounding box and determin if it is inside triangle
@@ -33,9 +59,9 @@ void Renderer::DrawMesh()
 
 	Vector2 currentPos(minX / 1, minY / 1);
 
-	Vector2 triVec_1 = testTriangle[1] - testTriangle[0];
-	Vector2 triVec_2 = testTriangle[2] - testTriangle[1];
-	Vector2 triVec_3 = testTriangle[0] - testTriangle[2];
+	Vector2 triVec_1 = currentTriangle[1] - currentTriangle[0];
+	Vector2 triVec_2 = currentTriangle[2] - currentTriangle[1];
+	Vector2 triVec_3 = currentTriangle[0] - currentTriangle[2];
 
 	cout << triVec_1 << endl;
 	cout << triVec_2 << endl;
@@ -48,9 +74,9 @@ void Renderer::DrawMesh()
 		for (int j = 0; j < YCount; j++)
 		{
 			// Use cross to see if the point is inside the triangle
-			Vector2 Vec_1 = currentPos - testTriangle[0];
-			Vector2 Vec_2 = currentPos - testTriangle[1];
-			Vector2 Vec_3 = currentPos - testTriangle[2];
+			Vector2 Vec_1 = currentPos - currentTriangle[0];
+			Vector2 Vec_2 = currentPos - currentTriangle[1];
+			Vector2 Vec_3 = currentPos - currentTriangle[2];
 
 			currentPos.y += 1;
 			//cout << Vector2::Cross(Vec_1, triVec_1) << endl;
@@ -59,7 +85,7 @@ void Renderer::DrawMesh()
 			if (Vector2::Cross(Vec_1, triVec_1) * Vector2::Cross(Vec_2, triVec_2) > 0
 				&& Vector2::Cross(Vec_1, triVec_1) * Vector2::Cross(Vec_3, triVec_3) > 0)
 			{
-				SetPixel(screenHDC, (int)currentPos.x, (int)currentPos.y, RGB(0, 255, 255));
+				DrawPixel((int)currentPos.x, (int)currentPos.y, RGB(0, 255, 255));
 			}
 		}
 		currentPos.x += 1;
@@ -83,5 +109,10 @@ void Renderer::DrawMesh()
 void Renderer::DrawLine()
 {
 
+}
+
+void Renderer::DrawPixel(int x, int y, COLORREF color)
+{
+	SetPixel(screenHDC, x, y, color);
 }
 

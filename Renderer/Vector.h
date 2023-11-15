@@ -25,6 +25,9 @@ public:
 	Vector3(T fx, T fy, T fz, T fw);
 	Vector3(T fx, T fy, T fz);
 	void Print();
+
+	template<typename U>
+	friend ostream& operator<< (ostream& os, const Vector3<U>& value);
 	//~Vector3();
 
 private:
@@ -118,6 +121,13 @@ void Vector3<T>::Print()
 	cout << "x:" << x << "  y:" << y << "  z:" << z << endl;
 }
 
+template<typename U>
+ostream& operator<< (ostream& os, const Vector3<U>& value) 
+{
+	os << "(" << value.x << ", " << value.y << ", " << value.z << ")";
+	return os;
+}
+
 
 class Vector2
 {
@@ -132,6 +142,7 @@ public:
 
 	Vector2 operator +(const Vector2& value) const;
 	Vector2 operator -(const Vector2& value) const;
+	Vector2 operator *(float value) const;
 	friend ostream& operator <<(ostream& os, const Vector2& value);
 
 	float static Dot(const Vector2& left, const Vector2& right);

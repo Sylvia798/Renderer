@@ -97,7 +97,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 void Render()
 {
     renderer = new Renderer(hdc, screenWidth, screenHeight, camera);
-    renderer->DrawMesh();
+    renderer->DrawMesh(&mesh);
     cout << "is here" << endl;
 }
 
