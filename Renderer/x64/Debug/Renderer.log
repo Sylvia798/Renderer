@@ -1,2 +1,19 @@
-﻿  Matrix.cpp
-  Renderer.vcxproj -> C:\Users\u1482656\Renderer\x64\Debug\Renderer.exe
+﻿  Camera.cpp
+  Color.cpp
+  main.cpp
+  Matrix.cpp
+C:\Users\u1482656\Renderer\Renderer\Matrix.cpp(170,16): error C2679: binary '*': no operator found which takes a right-hand operand of type 'const Vector3f' (or there is no acceptable conversion)
+C:\Users\u1482656\Renderer\Renderer\Matrix.cpp(44,16): message : could be 'Matrix Matrix::operator *(float) const'
+C:\Users\u1482656\Renderer\Renderer\Matrix.cpp(87,17): message : or       'Vector2 Matrix::operator *(const Vector2 &) const'
+C:\Users\u1482656\Renderer\Renderer\Matrix.cpp(74,18): message : or       'Vector3f Matrix::operator *(const Vector3f &)'
+C:\Users\u1482656\Renderer\Renderer\Matrix.cpp(57,16): message : or       'Matrix Matrix::operator *(const Matrix &) const'
+C:\Users\u1482656\Renderer\Renderer\Matrix.cpp(170,16): message : while trying to match the argument list '(const Matrix, const Vector3f)'
+  Mesh.cpp
+  ReadObjFile.cpp
+C:\Users\u1482656\Renderer\Renderer\ReadObjFile.cpp(11,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Render.cpp
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(27,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(72,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(73,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Vector.cpp
+  Generating Code...

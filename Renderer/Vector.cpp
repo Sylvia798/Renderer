@@ -29,3 +29,27 @@ ostream& operator << (ostream& os, const Vector2& value)
 	os << '(' << value.x << ", " << value.y << ")";
 	return os;
 }
+
+float Vector2::operator[](int index) const
+{
+	switch (index)
+	{
+	case 0: return x;
+	case 1: return y;
+	default:
+		throw out_of_range("Vector2 index out of range");
+		break;
+	}
+}
+
+float Vector2::operator[](int index)
+{
+	switch (index)
+	{
+	case 0: return x;
+	case 1: return y;
+	default:
+		throw out_of_range("Vector2 index out of range");
+		break;
+	}
+}

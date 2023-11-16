@@ -12,7 +12,7 @@ public:
 
 	Matrix operator+ (const Matrix& other) const;
 	Matrix operator* (const Matrix& other) const;
-	Vector3f operator* (const Vector3f& other) const;
+	Vector3f operator* (const Vector3f& other);
 	Vector2 operator* (const Vector2& other) const;
 	Matrix operator* (float k) const;
 

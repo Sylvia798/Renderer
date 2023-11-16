@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include <windows.h>
+#include <stdexcept>
 
 using namespace std;
 
@@ -15,6 +16,33 @@ public:
 	Vector3<T> operator- (const Vector3<T>& other) const;
 	Vector3<T> operator* (float Value) const;
 	Vector3<T> operator/ (float Value) const;
+	T& operator[](int index) const
+	{
+		switch (index)
+		{
+		case 0: return x;
+		case 1:return y;
+		case 2:return z;
+		case 3:return w;
+		default:
+			throw out_of_range("Vector3 index out of range");
+			break;
+		}
+	}
+
+	T& operator[](int index)
+	{
+		switch (index)
+		{
+		case 0: return x;
+		case 1:return y;
+		case 2:return z;
+		case 3:return w;
+		default:
+			throw out_of_range("Vector3 index out of range");
+			break;
+		}
+	}
 
 	float static Magnitude(const Vector3<T>& vec);
 	Vector3<T> static Normalize(const Vector3<T>& vec);
@@ -44,7 +72,7 @@ Vector3<T>::Vector3()
 	x = 0;
 	y = 0;
 	z = 0;
-	w = 0;
+	w = 1;
 }
 
 template<class T>
@@ -155,6 +183,8 @@ public:
 	Vector2 operator -(const Vector2& value) const;
 	Vector2 operator *(float value) const;
 	friend ostream& operator <<(ostream& os, const Vector2& value);
+	float operator[](int index) const;
+	float operator[](int index);
 
 	float static Dot(const Vector2& left, const Vector2& right);
 

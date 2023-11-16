@@ -71,16 +71,14 @@ Matrix Matrix::operator* (const Matrix& rightMatrix) const
 	return returnValue;
 }
 
-Vector3f Matrix::operator* (const Vector3f& vector) const
+Vector3f Matrix::operator* (const Vector3f& vector)
 {
 	Vector3f returnValue;
 	for (int i = 0; i < 4; i++) //Get matrixA line i
 	{
 		for (int j = 0; j < 4; j++) // Get matrixB column j
 		{
-			if(i == 0) returnValue.x += value[i][j] * vector.x;
-			if(i == 1) returnValue.y += value[i][j] * vector.y;
-			if(i == 2) returnValue.z += value[i][j] * vector.z;
+			returnValue[i] += value[i][j] * vector[i];
 		}
 	}
 	return returnValue;
@@ -89,14 +87,8 @@ Vector3f Matrix::operator* (const Vector3f& vector) const
 Vector2 Matrix::operator* (const Vector2& vector) const
 {
 	Vector2 returnValue;
-	for (int i = 0; i < 4; i++) //Get matrixA line i
-	{
-		for (int j = 0; j < 4; j++) // Get matrixB column j
-		{
-			if(i == 0) returnValue.x += value[i][j] * vector.x;
-			if(i == 1) returnValue.y += value[i][j] * vector.y;
-		}
-	}
+	returnValue.x = value[0][0] * vector.x + value[0][1] * vector.y;
+	returnValue.y = value[1][0] * vector.x + value[1][1] * vector.y;
 	return returnValue;
 }
 
