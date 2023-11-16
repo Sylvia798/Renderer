@@ -24,6 +24,7 @@ public:
 	Vector3<T> Cross(const Vector3<T>& other);
 	Vector3(T fx, T fy, T fz, T fw);
 	Vector3(T fx, T fy, T fz);
+	Vector3();
 	void Print();
 
 	template<typename U>
@@ -36,6 +37,15 @@ private:
 
 using Vector3f = Vector3<float>;
 using Vector3i = Vector3<int>;
+
+template<class T>
+Vector3<T>::Vector3()
+{
+	x = 0;
+	y = 0;
+	z = 0;
+	w = 0;
+}
 
 template<class T>
 Vector3<T>::Vector3(T fx, T fy, T fz, T fw)
@@ -135,6 +145,7 @@ public:
 	float x, y;
 
 	Vector2(float u, float v) : x(u), y(v) {}
+	Vector2() : x(0), y(0) {}
 	void Print()
 	{
 		cout << "x:" << x << "  y:" << y << endl;

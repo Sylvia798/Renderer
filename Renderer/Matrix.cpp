@@ -61,6 +61,7 @@ Matrix Matrix::operator* (const Matrix& rightMatrix) const
 	{
 		for (int j = 0; j < 4; j++) // Get matrixB column j
 		{
+			returnValue.value[i][j] = 0;
 			for (int k = 0; k < 4; k++)
 			{
 				returnValue.value[i][j] += value[i][k] * rightMatrix.value[k][j];
@@ -68,6 +69,49 @@ Matrix Matrix::operator* (const Matrix& rightMatrix) const
 		}
 	}
 	return returnValue;
+}
+
+Vector3f Matrix::operator* (const Vector3f& vector) const
+{
+	Vector3f returnValue;
+	for (int i = 0; i < 4; i++) //Get matrixA line i
+	{
+		for (int j = 0; j < 4; j++) // Get matrixB column j
+		{
+			if(i == 0) returnValue.x += value[i][j] * vector.x;
+			if(i == 1) returnValue.y += value[i][j] * vector.y;
+			if(i == 2) returnValue.z += value[i][j] * vector.z;
+		}
+	}
+	return returnValue;
+}
+
+Vector2 Matrix::operator* (const Vector2& vector) const
+{
+	Vector2 returnValue;
+	for (int i = 0; i < 4; i++) //Get matrixA line i
+	{
+		for (int j = 0; j < 4; j++) // Get matrixB column j
+		{
+			if(i == 0) returnValue.x += value[i][j] * vector.x;
+			if(i == 1) returnValue.y += value[i][j] * vector.y;
+		}
+	}
+	return returnValue;
+}
+
+ostream& operator << (ostream& os, const Matrix& value)
+{
+	os << "Matrix" << endl;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			os << value.value[i][j] << ", ";
+		}
+		os << endl;
+	}
+	return os;
 }
 
 Matrix Matrix::Translate(const Vector3f& value)
@@ -128,9 +172,10 @@ Matrix Matrix::Scale(const Vector3f& value)
 	return returnValue * (*this);
 }
 
-Matrix Matrix::ObjectToWorld(Matrix& target)
+Vector3f Matrix::ObjectToWorld(const Matrix& MVPMatrix, const Vector3f& target)
 {
-	Matrix returnValue;
-
+	Vector3f returnValue(target);
+	returnValue = MVPMatrix * target;
 	return returnValue;
 }
+

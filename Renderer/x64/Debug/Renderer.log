@@ -1,14 +1,2 @@
-﻿  Color.cpp
-  Matrix.cpp
-C:\Users\u1482656\Renderer\Renderer\Matrix.h(5,25): warning C4305: 'initializing': truncation from 'double' to 'float'
-  Mesh.cpp
-  ReadObjFile.cpp
-C:\Users\u1482656\Renderer\Renderer\ReadObjFile.cpp(11,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Render.cpp
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(15,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(57,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(58,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  Vector.cpp
-  main.cpp
-  Generating Code...
+﻿  Matrix.cpp
   Renderer.vcxproj -> C:\Users\u1482656\Renderer\x64\Debug\Renderer.exe
