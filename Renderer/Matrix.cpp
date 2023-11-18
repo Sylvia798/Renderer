@@ -76,9 +76,10 @@ Vector3f Matrix::operator* (const Vector3f& vector)
 	Vector3f returnValue;
 	for (int i = 0; i < 4; i++) //Get matrixA line i
 	{
+		returnValue[i] = 0;
 		for (int j = 0; j < 4; j++) // Get matrixB column j
 		{
-			returnValue[i] += value[i][j] * vector[i];
+			returnValue[i] = returnValue[i] + value[i][j] * vector[i];
 		}
 	}
 	return returnValue;
@@ -87,8 +88,8 @@ Vector3f Matrix::operator* (const Vector3f& vector)
 Vector2 Matrix::operator* (const Vector2& vector) const
 {
 	Vector2 returnValue;
-	returnValue.x = value[0][0] * vector.x + value[0][1] * vector.y;
-	returnValue.y = value[1][0] * vector.x + value[1][1] * vector.y;
+	returnValue.x = value[0][0] * vector.x + value[0][1] * vector.y + value[0][3];
+	returnValue.y = value[1][0] * vector.x + value[1][1] * vector.y + value[1][3];
 	return returnValue;
 }
 
@@ -164,7 +165,20 @@ Matrix Matrix::Scale(const Vector3f& value)
 	return returnValue * (*this);
 }
 
-Vector3f Matrix::ObjectToWorld(const Matrix& MVPMatrix, const Vector3f& target)
+Matrix Matrix::Inverse() const
+{
+	Matrix returnValue;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			returnValue.value[i][j] = value[j][i];
+		}
+	}
+	return returnValue;
+}
+
+Vector3f Matrix::ObjectToWorld(Matrix& MVPMatrix, const Vector3f& target)
 {
 	Vector3f returnValue(target);
 	returnValue = MVPMatrix * target;

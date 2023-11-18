@@ -14,9 +14,10 @@ public:
 
 	Vector3<T> operator+ (const Vector3<T>& other) const;
 	Vector3<T> operator- (const Vector3<T>& other) const;
+	Vector3<T> operator- () const;
 	Vector3<T> operator* (float Value) const;
 	Vector3<T> operator/ (float Value) const;
-	T& operator[](int index) const
+	const T& operator[](int index) const
 	{
 		switch (index)
 		{
@@ -49,7 +50,6 @@ public:
 	float static Dot(const Vector3<T>& left, const Vector3<T>& right);
 	float Dot(const Vector3<T>& other);
 	Vector3<T> static Cross(const Vector3<T>& left, const Vector3<T>& right);
-	Vector3<T> Cross(const Vector3<T>& other);
 	Vector3(T fx, T fy, T fz, T fw);
 	Vector3(T fx, T fy, T fz);
 	Vector3();
@@ -116,6 +116,17 @@ Vector3<T> Vector3<T>::operator- (const Vector3<T>& other) const
 }
 
 template<class T>
+Vector3<T> Vector3<T>::operator- () const
+{
+	Vector3<T> returnValue;
+	returnValue.x = -x;
+	returnValue.y = -y;
+	returnValue.z = -z;
+	returnValue.w = -w;
+	return returnValue;
+}
+
+template<class T>
 Vector3<T> Vector3<T>::operator* (const float value) const
 {
 	Vector3<T> returnValue = Vector3<T>(x * value, y * value, z * value);
@@ -151,6 +162,15 @@ template<class T>
 float Vector3<T>::Dot(const Vector3<T>& other)
 {
 	return x * other.x + y * other.y + z * other.z;
+}
+
+template<class T>
+Vector3<T> Vector3<T>::Cross(const Vector3<T>& left, const Vector3<T>& right)
+{
+	return Vector3(
+		left.y * right.z - left.z * right.y,
+		left.z * right.x - left.x * right.z,
+		left.x * right.y - left.y * right.x);
 }
 
 template<class T>

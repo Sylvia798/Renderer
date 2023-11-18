@@ -22,7 +22,8 @@ public:
 	Matrix RotateZ(float angle);
 	Matrix Rotate(const Vector3f& value);
 	Matrix Scale(const Vector3f& value);
-	Vector3f ObjectToWorld(const Matrix& MVPMatrix, const Vector3f& target);
+	Matrix Inverse() const;
+	Vector3f ObjectToWorld(Matrix& MVPMatrix, const Vector3f& target);
 	void Identity();
 	Matrix();
 	Matrix(const float (*initValue)[4]);

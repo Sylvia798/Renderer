@@ -9,15 +9,21 @@ Matrix MVPMatrix;
 Renderer::Renderer(HDC hdc, int screenWidth, int screenHeight, Camera camera)
 	: screenHDC(hdc), screenWidth(screenWidth), screenHeight(screenHeight), camera(camera)
 {
+	camera.SetCameraTransform(Vector3f(0, 0, 0), Vector3f(0, 1, 0), Vector3f(0, 0, -1));
+	camera.Orthograohic(0, 120, Vector2(-10, 10), Vector2(-10, 10));
+
 	Matrix ModelMat;
 	cout << ModelMat << endl;
 
-	ModelMat = ModelMat.Scale(Vector3f(10, 10, 10));
+	ModelMat = ModelMat.Scale(Vector3f(100, 100, 100));
+	//ModelMat = ModelMat.Translate(Vector3f(150, 200, 0));
 	cout << ModelMat << endl;
 
-	//ModelMat = ModelMat.Translate(Vector3f(screenWidth / 2, screenHeight / 2, 0));
-	ModelMat = ModelMat.Translate(Vector3f(150, 200, 0));
-	cout << ModelMat << endl;
+	cout << camera.ViewMatrix << endl;
+	MVPMatrix = camera.ProjectionMatrix * camera.ViewMatrix * ModelMat;
+	cout << MVPMatrix << endl;
+
+	
 	
 	MVPMatrix = ModelMat;
 }
@@ -26,6 +32,7 @@ void Renderer::DrawMesh(const Mesh* mesh)
 {
 	int faceCount = mesh->faceBuffer.size();
 	vector<Vector2> triangleVertexs;
+	cout << "Face Count:" << faceCount;
 	for (int i = 0; i < faceCount; i++)
 	{
 		triangleVertexs.clear();
@@ -58,6 +65,10 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 	currentTriangle.push_back(vec1);
 	currentTriangle.push_back(vec2);
 	currentTriangle.push_back(vec3);
+
+	cout << vec1 << endl;
+	cout << vec2 << endl;
+	cout << vec3 << endl;
 
 	//Calculate the minimum bounding box of a triangle
 	float minX = min(min(currentTriangle[0].x, currentTriangle[1].x), currentTriangle[2].x);
