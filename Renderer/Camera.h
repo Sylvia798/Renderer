@@ -14,5 +14,5 @@ public:
 
 	void SetCameraTransform(Vector3f position, Vector3f UpDirection, Vector3f LookAtDirection);
 	//Matrix Perspective(float nearPlane, float farPlane, );
-	void Orthograohic(float nearPlane, float farPlane, Vector2 leftRightRange, Vector2 bottomUpRange);
+	void Orthographic(float nearPlane, float farPlane, Vector2 leftRightRange, Vector2 bottomUpRange);
 };

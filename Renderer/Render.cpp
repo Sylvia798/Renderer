@@ -4,27 +4,29 @@ using namespace std;
 
 vector<Vector2> currentTriangle;
 Matrix MVPMatrix;
+Matrix ViewportMatrix; //transform[-1, 1] cube to [0, screenWidth] [0, screenHeight]
 
 
 Renderer::Renderer(HDC hdc, int screenWidth, int screenHeight, Camera camera)
 	: screenHDC(hdc), screenWidth(screenWidth), screenHeight(screenHeight), camera(camera)
 {
+	ViewportTransformation(screenWidth, screenHeight);
 	camera.SetCameraTransform(Vector3f(0, 0, 0), Vector3f(0, 1, 0), Vector3f(0, 0, -1));
-	camera.Orthograohic(0, 120, Vector2(-10, 10), Vector2(-10, 10));
+	camera.Orthographic(0, 120, Vector2(-10, 10), Vector2(-10, 10));
+
 
 	Matrix ModelMat;
 	cout << ModelMat << endl;
 
-	ModelMat = ModelMat.Scale(Vector3f(100, 100, 100));
-	//ModelMat = ModelMat.Translate(Vector3f(150, 200, 0));
-	cout << ModelMat << endl;
+	ModelMat = ModelMat.Scale(Vector3f(0.1, 0.1, 0.1));
+	//ModelMat = ModelMat.Translate(Vector3f(screenWidth /2, screenHeight /2, 0));
+	cout << camera.ProjectionMatrix << endl;
 
-	cout << camera.ViewMatrix << endl;
 	MVPMatrix = camera.ProjectionMatrix * camera.ViewMatrix * ModelMat;
+	//MVPMatrix = camera.ViewMatrix * ModelMat;
+	//MVPMatrix = ModelMat;
 	cout << MVPMatrix << endl;
 
-	
-	
 	MVPMatrix = ModelMat;
 }
 
@@ -66,9 +68,9 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 	currentTriangle.push_back(vec2);
 	currentTriangle.push_back(vec3);
 
-	cout << vec1 << endl;
-	cout << vec2 << endl;
-	cout << vec3 << endl;
+	//cout << vec1 << endl;
+	//cout << vec2 << endl;
+	//cout << vec3 << endl;
 
 	//Calculate the minimum bounding box of a triangle
 	float minX = min(min(currentTriangle[0].x, currentTriangle[1].x), currentTriangle[2].x);
@@ -89,9 +91,14 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 	Vector2 triVec_2 = currentTriangle[2] - currentTriangle[1];
 	Vector2 triVec_3 = currentTriangle[0] - currentTriangle[2];
 
-	//cout << triVec_1 << endl;
-	//cout << triVec_2 << endl;
-	//cout << triVec_3 << endl;
+	//viewport transformation
+	triVec_1 = ViewportMatrix * triVec_1;
+	triVec_2 = ViewportMatrix * triVec_2;
+	triVec_3 = ViewportMatrix * triVec_3;
+
+	cout << triVec_1 << endl;
+	cout << triVec_2 << endl;
+	cout << triVec_3 << endl;
 	//cout << YCount << endl;
 
 	for (int i = 0; i < XCount; i++)
@@ -109,6 +116,7 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 			if (Vector2::Cross(Vec_1, triVec_1) * Vector2::Cross(Vec_2, triVec_2) > 0
 				&& Vector2::Cross(Vec_1, triVec_1) * Vector2::Cross(Vec_3, triVec_3) > 0)
 			{
+				cout << "run here" << endl;
 				DrawPixel((int)currentPos.x, (int)currentPos.y, RGB(0, 255, 255));
 			}
 		}
@@ -135,8 +143,17 @@ void Renderer::DrawLine()
 
 }
 
+void Renderer::ViewportTransformation(float screenWidth, float screenHeight)
+{
+	ViewportMatrix.value[0][0] = screenWidth / 2;
+	ViewportMatrix.value[1][1] = screenHeight / 2;
+	ViewportMatrix.value[0][3] = screenWidth / 2;
+	ViewportMatrix.value[1][3] = screenHeight / 2;
+}
+
 void Renderer::DrawPixel(int x, int y, COLORREF color)
 {
 	SetPixel(screenHDC, x, y, color);
 }
+
 

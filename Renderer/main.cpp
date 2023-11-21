@@ -72,7 +72,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 
     GenerateConsole();
     
-    ReadObjFile("C:\\Users\\u1482656\\Renderer\\Models\\Cube.obj", mesh);
+    //ReadObjFile("C:\\Users\\u1482656\\Renderer\\Models\\Cube.obj", mesh);
+    ReadObjFile("D:\\Portfolio\\Renderer\\Models\\Cube.obj", mesh);
     Render();
 
     //Main message loop

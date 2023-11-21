@@ -19,11 +19,10 @@ void Camera::SetCameraTransform(Vector3f position, Vector3f UpDirection, Vector3
 	ViewMatrix = newViewMatrix;
 }
 
-void Camera::Orthograohic(float nearPlane, float farPlane, Vector2 leftRightRange, Vector2 bottomUpRange)
+void Camera::Orthographic(float nearPlane, float farPlane, Vector2 leftRightRange, Vector2 bottomUpRange)
 {
 	Matrix returnValue;
-	returnValue.Translate(Vector3f(-(leftRightRange.x + leftRightRange.y) / 2, -(bottomUpRange.x + bottomUpRange.y) / 2, -(nearPlane + farPlane) / 2));
-	returnValue.Scale(Vector3f(2 / (leftRightRange.y - leftRightRange.x), 2 / (bottomUpRange.y - bottomUpRange.x), 2 / (farPlane - nearPlane)));
-
+	returnValue = returnValue.Translate(Vector3f(-(leftRightRange.x + leftRightRange.y) / 2, -(bottomUpRange.x + bottomUpRange.y) / 2, -(nearPlane + farPlane) / 2));
+	returnValue = returnValue.Scale(Vector3f(2 / (leftRightRange.y - leftRightRange.x), 2 / (bottomUpRange.y - bottomUpRange.x), 2 / (farPlane - nearPlane)));
 	ProjectionMatrix = returnValue;
 }

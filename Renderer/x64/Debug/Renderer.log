@@ -1,8 +1,22 @@
-﻿  Camera.cpp
-  Render.cpp
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(33,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(83,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(84,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  main.cpp
-  Generating Code...
-  Renderer.vcxproj -> C:\Users\u1482656\Renderer\x64\Debug\Renderer.exe
+﻿  Render.cpp
+D:\Portfolio\Renderer\Renderer\Render.cpp(13,38): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\Portfolio\Renderer\Renderer\Render.cpp(13,25): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\Portfolio\Renderer\Renderer\Render.cpp(21,47): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=float
+          ]
+D:\Portfolio\Renderer\Renderer\Render.cpp(21,42): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=float
+          ]
+D:\Portfolio\Renderer\Renderer\Render.cpp(21,37): warning C4305: “参数”: 从“double”到“T”截断
+          with
+          [
+              T=float
+          ]
+D:\Portfolio\Renderer\Renderer\Render.cpp(35,16): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\Portfolio\Renderer\Renderer\Render.cpp(85,13): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+D:\Portfolio\Renderer\Renderer\Render.cpp(86,13): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+  Renderer.vcxproj -> D:\Portfolio\Renderer\x64\Debug\Renderer.exe

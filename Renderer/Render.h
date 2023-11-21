@@ -21,4 +21,5 @@ public:
 	void DrawPixel(int x, int y, COLORREF color);
 	void DrawMesh(const Mesh* mesh);
 	void DrawLine();
+	void ViewportTransformation(float ScreenWidth, float ScreenHeight);
 };
