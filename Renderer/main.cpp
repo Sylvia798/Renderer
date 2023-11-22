@@ -12,7 +12,7 @@ static const int screenWidth = 1500;
 
 HDC hdc;
 Mesh mesh;
-Camera camera;
+Camera * camera;
 Renderer * renderer;
 
 void GenerateConsole();
@@ -21,6 +21,11 @@ void Render();
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     //Handle msg
     switch (uMsg) {
+    case WM_MOUSEWHEEL: {
+        int delta = GET_WHEEL_DELTA_WPARAM(wParam) / WHEEL_DELTA;
+        renderer->RefreshCameraTransform(CameraMovement_t::Scale, Vector3f(delta, 0, 0));
+        break;
+    }
         case WM_DESTROY:
             PostQuitMessage(0);	//Quit window
             return 0;
@@ -72,8 +77,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 
     GenerateConsole();
     
-    //ReadObjFile("C:\\Users\\u1482656\\Renderer\\Models\\Cube.obj", mesh);
-    ReadObjFile("D:\\Portfolio\\Renderer\\Models\\Cube.obj", mesh);
+    ReadObjFile("C:\\Users\\u1482656\\Renderer\\Models\\Cube.obj", mesh);
+    //ReadObjFile("D:\\Portfolio\\Renderer\\Models\\Cube.obj", mesh);
     Render();
 
     //Main message loop
@@ -97,6 +102,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 
 void Render()
 {
+    camera = new Camera();
     renderer = new Renderer(hdc, screenWidth, screenHeight, camera);
     renderer->DrawMesh(&mesh);
     cout << "is here" << endl;

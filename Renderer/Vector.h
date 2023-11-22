@@ -143,7 +143,7 @@ Vector3<T> Vector3<T>::operator/ (const float value) const
 template<class T>
 float Vector3<T>::Magnitude(const Vector3<T>& vec)
 {
-	return sqrt(Dot(*this, *this));
+	return sqrt(Dot(vec, vec));
 }
 
 template<class T>

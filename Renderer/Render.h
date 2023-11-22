@@ -14,12 +14,13 @@ private:
 	HDC screenHDC;
 
 public:
-	Camera camera;
+	Camera* camera;
 
-	Renderer(HDC hdc, int screenWidth, int screenHeight, Camera camera);
+	Renderer(HDC hdc, int screenWidth, int screenHeight, Camera* camera);
 	void DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> index);
 	void DrawPixel(int x, int y, COLORREF color);
 	void DrawMesh(const Mesh* mesh);
 	void DrawLine();
 	void ViewportTransformation(float ScreenWidth, float ScreenHeight);
+	void RefreshCameraTransform(CameraMovement_t type, Vector3f value = Vector3f());
 };
