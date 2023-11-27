@@ -6,6 +6,11 @@ Color::Color(float cr, float cg, float cb, float ca)
 
 }
 
+Color::Color(COLORREF col)
+{
+	r = col
+}
+
 Color::~Color()
 {
 

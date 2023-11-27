@@ -2,7 +2,7 @@
 
 Camera::Camera()
 {
-	ScaleSpeed = 10;
+	ScaleSpeed = 1.1;
 	LookAtPoint = Vector3f(0, 0, -1);
 	UpDirection = Vector3f(0, 1, 0);
 }
@@ -13,6 +13,11 @@ void Camera::SetCameraTransform(Vector3f position, Vector3f UpDirection, Vector3
 	this->UpDirection = UpDirection;
 	Vector3f LookAtVector(LookAtPoint);
 	Vector3f RightVector = Vector3f::Cross(UpDirection, LookAtVector);
+
+	RightVector.Normalize();
+	UpDirection.Normalize();
+	LookAtVector.Normalize();
+
 	Matrix RotateMatrix;
 	RotateMatrix.value[0][0] = RightVector[0]; RotateMatrix.value[0][1] = UpDirection[0]; RotateMatrix.value[0][2] = LookAtVector[0];
 	RotateMatrix.value[1][0] = RightVector[1]; RotateMatrix.value[1][1] = UpDirection[1]; RotateMatrix.value[1][2] = LookAtVector[1];
@@ -46,4 +51,6 @@ void Camera::Scale(float value)
 	Vector3f ScaleDirection = Vector3f::Normalize(LookAtPoint);
 	transform.position = transform.position + ScaleDirection * value * ScaleSpeed;
 	SetCameraTransform(transform.position, UpDirection, LookAtPoint);
+	Vector3f scaleSize(value * ScaleSpeed, value * ScaleSpeed, 1);
+	ProjectionMatrix = ProjectionMatrix.Scale(scaleSize);
 }

@@ -17,6 +17,7 @@ Renderer * renderer;
 
 void GenerateConsole();
 void Render();
+void RefreshRender();
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     //Handle msg
@@ -24,6 +25,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
     case WM_MOUSEWHEEL: {
         int delta = GET_WHEEL_DELTA_WPARAM(wParam) / WHEEL_DELTA;
         renderer->RefreshCameraTransform(CameraMovement_t::Scale, Vector3f(delta, 0, 0));
+        RefreshRender();
         break;
     }
         case WM_DESTROY:
@@ -77,8 +79,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 
     GenerateConsole();
     
-    ReadObjFile("C:\\Users\\u1482656\\Renderer\\Models\\Cube.obj", mesh);
-    //ReadObjFile("D:\\Portfolio\\Renderer\\Models\\Cube.obj", mesh);
+    //ReadObjFile("C:\\Users\\u1482656\\Renderer\\Models\\Cube.obj", mesh);
+    ReadObjFile("D:\\Portfolio\\Renderer\\Models\\Cube.obj", mesh);
     Render();
 
     //Main message loop
@@ -104,8 +106,13 @@ void Render()
 {
     camera = new Camera();
     renderer = new Renderer(hdc, screenWidth, screenHeight, camera);
-    renderer->DrawMesh(&mesh);
+    RefreshRender();
     cout << "is here" << endl;
+}
+
+void RefreshRender()
+{
+    renderer->DrawMesh(&mesh);
 }
 
 

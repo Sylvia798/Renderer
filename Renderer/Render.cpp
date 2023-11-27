@@ -73,13 +73,13 @@ void Renderer::DrawMesh(const Mesh* mesh)
 void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVertexIndex)
 {
 	//TEST DATA
-	currentTriangle.push_back(Vector2(-10, 10));
-	currentTriangle.push_back(Vector2(0, 100));
-	currentTriangle.push_back(Vector2(100, 0)); 
+	//currentTriangle.push_back(Vector2(-10, 10));
+	//currentTriangle.push_back(Vector2(0, 100));
+	//currentTriangle.push_back(Vector2(100, 0)); 
 	
-	Vector2 vec1(mesh->positionBuffer[faceVertexIndex[0].x].x, mesh->positionBuffer[faceVertexIndex[0].x].y);
-	Vector2 vec2(mesh->positionBuffer[faceVertexIndex[1].x].x, mesh->positionBuffer[faceVertexIndex[1].x].y);
-	Vector2 vec3(mesh->positionBuffer[faceVertexIndex[2].x].x, mesh->positionBuffer[faceVertexIndex[2].x].y);
+	Vector3f vec1(mesh->positionBuffer[faceVertexIndex[0].x]);
+	Vector3f vec2(mesh->positionBuffer[faceVertexIndex[1].x]);
+	Vector3f vec3(mesh->positionBuffer[faceVertexIndex[2].x]);
 
 	//cout << faceVertexIndex[0].x << endl;
 	//cout << mesh->positionBuffer[faceVertexIndex[0].x] << endl;
@@ -89,16 +89,18 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 
 	//mvp transformation and viewport transformation
 	//cout << "v ma:" << ViewportMatrix << MVPMatrix << ViewportMatrix * MVPMatrix << endl;
+	//cout << "vec1:" << vec1 << endl;
+	//cout << "vec2:" << vec2 << endl;
+	//cout << "vec3:" << vec3 << endl;
 	vec1 = ViewportMatrix * MVPMatrix * vec1;
 	vec2 = ViewportMatrix * MVPMatrix * vec2;
 	vec3 = ViewportMatrix * MVPMatrix * vec3;
-	currentTriangle.push_back(vec1);
-	currentTriangle.push_back(vec2);
-	currentTriangle.push_back(vec3);
-
-	//cout << vec1 << endl;
-	//cout << vec2 << endl;
-	//cout << vec3 << endl;
+	cout << "vec1:" << vec1 << endl;
+	cout << "vec2:" << vec2 << endl;
+	cout << "vec3:" << vec3 << endl;	
+	currentTriangle.push_back(Vector2(vec1.x, vec1.y));
+	currentTriangle.push_back(Vector2(vec2.x, vec2.y));
+	currentTriangle.push_back(Vector2(vec3.x, vec3.y));
 
 	//Calculate the minimum bounding box of a triangle
 	float minX = min(min(currentTriangle[0].x, currentTriangle[1].x), currentTriangle[2].x);

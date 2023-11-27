@@ -79,7 +79,7 @@ Vector3f Matrix::operator* (const Vector3f& vector)
 		returnValue[i] = 0;
 		for (int j = 0; j < 4; j++) // Get matrixB column j
 		{
-			returnValue[i] = returnValue[i] + value[i][j] * vector[i];
+			returnValue[i] = returnValue[i] + value[i][j] * vector[j];
 		}
 	}
 	return returnValue;

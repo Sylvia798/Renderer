@@ -47,6 +47,7 @@ public:
 
 	float static Magnitude(const Vector3<T>& vec);
 	Vector3<T> static Normalize(const Vector3<T>& vec);
+	void Normalize();
 	float static Dot(const Vector3<T>& left, const Vector3<T>& right);
 	float Dot(const Vector3<T>& other);
 	Vector3<T> static Cross(const Vector3<T>& left, const Vector3<T>& right);
@@ -150,6 +151,12 @@ template<class T>
 Vector3<T> Vector3<T>::Normalize(const Vector3<T>& vec)
 {
 	return vec / Magnitude(vec);
+}
+
+template<class T>
+void Vector3<T>::Normalize()
+{
+	*this = *this / Magnitude(*this);
 }
 
 template<class T>
