@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "Mesh.h"
 #include "Matrix.h"
+#include "Texture.h"
 
 using namespace std;
 class Renderer
@@ -15,8 +16,9 @@ private:
 
 public:
 	Camera* camera;
+	Texture* mainTex;
 
-	Renderer(HDC hdc, int screenWidth, int screenHeight, Camera* camera);
+	Renderer(HDC hdc, int screenWidth, int screenHeight, Camera* camera, Texture* mainTexure);
 	void DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> index);
 	void DrawPixel(int x, int y, COLORREF color);
 	void DrawMesh(const Mesh* mesh);

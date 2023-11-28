@@ -8,7 +8,14 @@ Color::Color(float cr, float cg, float cb, float ca)
 
 Color::Color(COLORREF col)
 {
-	r = col
+	r = col % 256 / 256;
+	g = (col >> 8) % 256 / 256;
+	b = (col >> 16) / 256;
+}
+
+Color::Color()
+{
+
 }
 
 Color::~Color()

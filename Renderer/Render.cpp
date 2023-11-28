@@ -9,9 +9,17 @@ Matrix MVPMatrix;
 Matrix ViewportMatrix; //transform[-1, 1] cube to [0, screenWidth] [0, screenHeight]
 
 
-Renderer::Renderer(HDC hdc, int screenWidth, int screenHeight, Camera* camera)
-	: screenHDC(hdc), screenWidth(screenWidth), screenHeight(screenHeight), camera(camera)
+Renderer::Renderer(HDC hdc, int screenWidth, int screenHeight, Camera* camera, Texture* mainTexture)
+	: screenHDC(hdc), screenWidth(screenWidth), screenHeight(screenHeight), camera(camera), mainTex(mainTexture)
 {
+	for (int i = 0; i < 500; i++)
+	{
+		for (int j = 0; j < 500; j++)
+		{
+			DrawPixel(i, j, RGB(mainTex->data[i][j].r * 255, mainTex->data[i][j].g * 255, mainTex->data[i][j].b * 255));
+		}
+	}
+
 	ViewportTransformation(screenWidth, screenHeight);
 	//use aspect ratio and screenHeight to calculate the related width of the camera
 	AspectRatio = (float)screenHeight / (float)screenWidth;

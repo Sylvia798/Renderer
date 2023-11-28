@@ -4,6 +4,7 @@
 
 #include "ReadObjFile.h"
 #include "Render.h"
+#include "Texture.h"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ HDC hdc;
 Mesh mesh;
 Camera * camera;
 Renderer * renderer;
+Texture* mainTexture = new Texture();
 
 void GenerateConsole();
 void Render();
@@ -79,8 +81,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 
     GenerateConsole();
     
-    //ReadObjFile("C:\\Users\\u1482656\\Renderer\\Models\\Cube.obj", mesh);
-    ReadObjFile("D:\\Portfolio\\Renderer\\Models\\Cube.obj", mesh);
+    ReadObjFile("C:\\Users\\u1482656\\Renderer\\Assets\\Cube.obj", mesh);
+    mainTexture->LoadTexture("C:\\Users\\u1482656\\Renderer\\Assets\\UVGrid.png");
+
+    //ReadObjFile("D:\\Portfolio\\Renderer\\Assets\\Cube.obj", mesh);
+    //mainTexture->LoadTexture("D:\\Portfolio\\Renderer\\Assets\\UVGrid.png");
     Render();
 
     //Main message loop
@@ -105,7 +110,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 void Render()
 {
     camera = new Camera();
-    renderer = new Renderer(hdc, screenWidth, screenHeight, camera);
+    renderer = new Renderer(hdc, screenWidth, screenHeight, camera, mainTexture);
     RefreshRender();
     cout << "is here" << endl;
 }
