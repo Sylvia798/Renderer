@@ -9,16 +9,16 @@ Matrix MVPMatrix;
 Matrix ViewportMatrix; //transform[-1, 1] cube to [0, screenWidth] [0, screenHeight]
 
 
-Renderer::Renderer(HDC hdc, int screenWidth, int screenHeight, Camera* camera, Texture* mainTexture)
-	: screenHDC(hdc), screenWidth(screenWidth), screenHeight(screenHeight), camera(camera), mainTex(mainTexture)
+Renderer::Renderer(HDC hdc, int screenWidth, int screenHeight, Camera* camera, Texture* mainTexture, DirectionalLight* directionalLight)
+	: screenHDC(hdc), screenWidth(screenWidth), screenHeight(screenHeight), camera(camera), mainTex(mainTexture), dirLight(directionalLight)
 {
-	for (int i = 0; i < 500; i++)
-	{
-		for (int j = 0; j < 500; j++)
-		{
-			DrawPixel(i, j, RGB(mainTex->data[i][j].r * 255, mainTex->data[i][j].g * 255, mainTex->data[i][j].b * 255));
-		}
-	}
+	//for (int i = 0; i < 500; i++)
+	//{
+	//	for (int j = 0; j < 500; j++)
+	//	{
+	//		DrawPixel(i, j, RGB(mainTex->data[i][j].r * 255, mainTex->data[i][j].g * 255, mainTex->data[i][j].b * 255));
+	//	}
+	//}
 
 	ViewportTransformation(screenWidth, screenHeight);
 	//use aspect ratio and screenHeight to calculate the related width of the camera
@@ -89,6 +89,14 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 	Vector3f vec2(mesh->positionBuffer[faceVertexIndex[1].x]);
 	Vector3f vec3(mesh->positionBuffer[faceVertexIndex[2].x]);
 
+	Vector2 uv1(mesh->uvBuffer[faceVertexIndex[0].y]);
+	Vector2 uv2(mesh->uvBuffer[faceVertexIndex[1].y]);
+	Vector2 uv3(mesh->uvBuffer[faceVertexIndex[2].y]);
+
+	//cout << "uv1:" << uv1 << endl;
+	//cout << "uv2:" << uv2 << endl;
+	//cout << "uv3:" << uv3 << endl;
+
 	//cout << faceVertexIndex[0].x << endl;
 	//cout << mesh->positionBuffer[faceVertexIndex[0].x] << endl;
 	//cout << mesh->positionBuffer[faceVertexIndex[0].x].x << endl;
@@ -103,9 +111,9 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 	vec1 = ViewportMatrix * MVPMatrix * vec1;
 	vec2 = ViewportMatrix * MVPMatrix * vec2;
 	vec3 = ViewportMatrix * MVPMatrix * vec3;
-	cout << "vec1:" << vec1 << endl;
-	cout << "vec2:" << vec2 << endl;
-	cout << "vec3:" << vec3 << endl;	
+	//cout << "vec1:" << vec1 << endl;
+	//cout << "vec2:" << vec2 << endl;
+	//cout << "vec3:" << vec3 << endl;		
 	currentTriangle.push_back(Vector2(vec1.x, vec1.y));
 	currentTriangle.push_back(Vector2(vec2.x, vec2.y));
 	currentTriangle.push_back(Vector2(vec3.x, vec3.y));
@@ -135,6 +143,8 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 	//cout << triVec_3 << endl;
 	//cout << YCount << endl;
 
+	Vector2 triVec_4 = currentTriangle[2] - currentTriangle[0];
+	float triangleArea = Vector2::Cross(triVec_1, triVec_4);
 	for (int i = 0; i < XCount; i++)
 	{
 		currentPos.y = minY / 1;
@@ -146,11 +156,20 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 			Vector2 Vec_3 = currentPos - currentTriangle[2];
 
 			currentPos.y += 1;
+			float triArea1 = Vector2::Cross(Vec_1, triVec_1);
+			float triArea2 = Vector2::Cross(Vec_2, triVec_2);
+			float triArea3 = Vector2::Cross(Vec_3, triVec_3);
 
-			if (Vector2::Cross(Vec_1, triVec_1) * Vector2::Cross(Vec_2, triVec_2) > 0
-				&& Vector2::Cross(Vec_1, triVec_1) * Vector2::Cross(Vec_3, triVec_3) > 0)
+			if(triArea1* triArea2 > 0 && triArea1 * triArea3 > 0)
 			{
-				DrawPixel((int)currentPos.x, (int)currentPos.y, RGB(0, 255, 255));
+				//Calculate Barycentric Coordinates
+				float gamma1 = triArea2 / triangleArea;
+				float gamma2 = triArea3 / triangleArea;
+				float gamma3 = triArea1 / triangleArea;
+
+				Vector2 uv = uv1 * gamma1 + uv2 * gamma2 + uv3 * gamma3;
+				Color pixelCol = mainTex->Sample(uv.x, uv.y);
+				DrawPixel((int)currentPos.x, (int)currentPos.y, RGB(pixelCol.r * 255, pixelCol.g * 255, pixelCol.b * 255));
 			}
 		}
 		currentPos.x += 1;

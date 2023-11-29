@@ -5,6 +5,7 @@
 #include "ReadObjFile.h"
 #include "Render.h"
 #include "Texture.h"
+#include "Lighting.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ Mesh mesh;
 Camera * camera;
 Renderer * renderer;
 Texture* mainTexture = new Texture();
+DirectionalLight* dirLight = new DirectionalLight(Vector3f(45, 45, 45), 1);
 
 void GenerateConsole();
 void Render();
