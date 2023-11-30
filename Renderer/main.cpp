@@ -112,7 +112,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 void Render()
 {
     camera = new Camera();
-    renderer = new Renderer(hdc, screenWidth, screenHeight, camera, mainTexture);
+    renderer = new Renderer(hdc, screenWidth, screenHeight, camera, mainTexture, dirLight);
     RefreshRender();
     cout << "is here" << endl;
 }

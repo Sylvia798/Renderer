@@ -109,10 +109,10 @@ template<class T>
 Vector3<T> Vector3<T>::operator- (const Vector3<T>& other) const
 {
 	Vector3<T> returnValue;
-	returnValue.x = x + other.x;
-	returnValue.y = y + other.y;
-	returnValue.z = z + other.z;
-	returnValue.w = w + other.w;
+	returnValue.x = x - other.x;
+	returnValue.y = y - other.y;
+	returnValue.z = z - other.z;
+	returnValue.w = w - other.w;
 	return returnValue;
 }
 

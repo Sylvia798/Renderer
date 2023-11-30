@@ -15,16 +15,6 @@ private:
 
 };
 
-Lighting::Lighting(Vector3f pos, Vector3f rot, float intensity)
-	:position(pos), rotation(rot), intensity(intensity)
-{
-}
-
-Lighting::~Lighting()
-{
-}
-
-
 class DirectionalLight : public Lighting
 {
 public:
@@ -37,15 +27,6 @@ private:
 	
 };
 
-const Vector3f DirectionalLight::pos = Vector3f(0, 0, 0);
-
-DirectionalLight::DirectionalLight(Vector3f rot, float intensity) : Lighting(DirectionalLight::pos, rot, intensity)
-{
-}
-
-DirectionalLight::~DirectionalLight()
-{
-}
 
 class PointLight : public Lighting
 {
@@ -58,13 +39,3 @@ public:
 private:
 
 };
-
-const Vector3f PointLight::rot = Vector3f(0, 0, 0);
-
-PointLight::PointLight(Vector3f pos, float intensity) : Lighting(pos, PointLight::rot, intensity)
-{
-}
-
-PointLight::~PointLight()
-{
-}

@@ -1,7 +1,9 @@
 ﻿  Render.cpp
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(23,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(23,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(68,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(131,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\u1482656\Renderer\Renderer\Render.cpp(132,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(33,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(33,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(78,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(141,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(142,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(177,39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\u1482656\Renderer\Renderer\Render.cpp(177,25): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   Renderer.vcxproj -> C:\Users\u1482656\Renderer\x64\Debug\Renderer.exe

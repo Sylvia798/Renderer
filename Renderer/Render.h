@@ -19,6 +19,7 @@ public:
 	Camera* camera;
 	Texture* mainTex;
 	DirectionalLight* dirLight;
+	float** depthBuffer;
 
 	Renderer(HDC hdc, int screenWidth, int screenHeight, Camera* camera, Texture* mainTexure, DirectionalLight* directionalLight);
 	void DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> index);
@@ -27,5 +28,5 @@ public:
 	void DrawLine();
 	void ViewportTransformation(float ScreenWidth, float ScreenHeight);
 	void RefreshCameraTransform(CameraMovement_t type, Vector3f value = Vector3f());
-	bool ZTest();
+	bool ZTest(int x, int y, float depth, bool transparent);
 };
