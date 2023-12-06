@@ -17,7 +17,7 @@ Mesh mesh;
 Camera * camera;
 Renderer * renderer;
 Texture* mainTexture = new Texture();
-DirectionalLight* dirLight = new DirectionalLight(Vector3f(45, 45, 45), 1);
+DirectionalLight* dirLight = new DirectionalLight(Vector3f(90, 90, 90), 1);
 
 void GenerateConsole();
 void Render();
@@ -43,8 +43,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
     return 0;
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine, int nShowCmd)
-{
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine, int nShowCmd){
     const wchar_t CLASS_NAME[] = L"Sample Window Class";
 
     WNDCLASS wc = { };
@@ -83,7 +82,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 
     GenerateConsole();
     
-    ReadObjFile("C:\\Users\\u1482656\\Renderer\\Assets\\Cube.obj", mesh);
+    ReadObjFile("C:\\Users\\u1482656\\Renderer\\Assets\\BallNCube.obj", mesh);
     mainTexture->LoadTexture("C:\\Users\\u1482656\\Renderer\\Assets\\UVGrid.png");
 
     //ReadObjFile("D:\\Portfolio\\Renderer\\Assets\\Cube.obj", mesh);

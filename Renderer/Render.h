@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "Lighting.h"
 
+
 using namespace std;
 class Renderer
 {
@@ -29,4 +30,5 @@ public:
 	void ViewportTransformation(float ScreenWidth, float ScreenHeight);
 	void RefreshCameraTransform(CameraMovement_t type, Vector3f value = Vector3f());
 	bool ZTest(int x, int y, float depth, bool transparent);
+	Color FragmentShader();
 };

@@ -47,21 +47,21 @@ void ReadObjFile(string FilePath, Mesh& mesh)
 			{
 				SplitString(line, ' ', tmpData);
 				Vector3f position(stof(tmpData[0]), stof(tmpData[1]), stof(tmpData[2]));
-				position.Print();
+				//position.Print();
 				mesh.positionBuffer.push_back(position);
 			}
 			else if (line[0] == 'v' && line[1] == 'n')
 			{
 				SplitString(line, ' ', tmpData);
 				Vector3f normal(stof(tmpData[0]), stof(tmpData[1]), stof(tmpData[2]));
-				normal.Print();
+				//normal.Print();
 				mesh.normalBuffer.push_back(normal);
 			}
 			else if (line[0] == 'v' && line[1] == 't')
 			{
 				SplitString(line, ' ', tmpData);
 				Vector2 uv(stof(tmpData[0]), stof(tmpData[1]));
-				uv.Print();
+				//uv.Print();
 				mesh.uvBuffer.push_back(uv);
 			}
 			else if (line[0] == 'f')
@@ -73,7 +73,7 @@ void ReadObjFile(string FilePath, Mesh& mesh)
 					subTmpData.clear();
 					SplitString(tmpData[i], '/', subTmpData, false);
 					Vector3i faceVertexIndex(stoi(subTmpData[0])-1, stoi(subTmpData[1])-1, stoi(subTmpData[2])-1);
-					faceVertexIndex.Print();
+					//faceVertexIndex.Print();
 					faces.push_back(faceVertexIndex);
 				}
 				mesh.faceBuffer.push_back(faces);

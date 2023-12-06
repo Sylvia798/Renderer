@@ -22,6 +22,7 @@ void Camera::SetCameraTransform(Vector3f position, Vector3f UpDirection, Vector3
 	RotateMatrix.value[0][0] = RightVector[0]; RotateMatrix.value[0][1] = UpDirection[0]; RotateMatrix.value[0][2] = LookAtVector[0];
 	RotateMatrix.value[1][0] = RightVector[1]; RotateMatrix.value[1][1] = UpDirection[1]; RotateMatrix.value[1][2] = LookAtVector[1];
 	RotateMatrix.value[2][0] = RightVector[2]; RotateMatrix.value[2][1] = UpDirection[2]; RotateMatrix.value[2][2] = LookAtVector[2];
+	
 	RotateMatrix = RotateMatrix.Inverse();
 
 	Matrix newViewMatrix(RotateMatrix.Translate(-position));

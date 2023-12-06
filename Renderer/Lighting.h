@@ -8,6 +8,7 @@ public:
 	Vector3f rotation;
 	float intensity;
 
+	Lighting();
 	Lighting(Vector3f pos, Vector3f rot, float intensity);
 	~Lighting();
 

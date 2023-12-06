@@ -2,9 +2,9 @@
 
 using namespace std;
 
-vector<Vector3f> currentTriangle;
 float AspectRatio;
 Matrix ModelMat;
+Matrix InverseModelMat;
 Matrix MVPMatrix;
 Matrix ViewportMatrix; //transform[-1, 1] cube to [0, screenWidth] [0, screenHeight]
 
@@ -20,6 +20,7 @@ Renderer::Renderer(HDC hdc, int screenWidth, int screenHeight, Camera* camera, T
 	//		DrawPixel(i, j, RGB(mainTex->data[i][j].r * 255, mainTex->data[i][j].g * 255, mainTex->data[i][j].b * 255));
 	//	}
 	//}
+	InverseModelMat = ModelMat.Inverse();
 	depthBuffer = new float* [screenHeight];
 	for (int i = 0; i < screenHeight; i++)
 	{
@@ -103,6 +104,10 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 	Vector2 uv2(mesh->uvBuffer[faceVertexIndex[1].y]);
 	Vector2 uv3(mesh->uvBuffer[faceVertexIndex[2].y]);
 
+	Vector3f normal1(mesh->normalBuffer[faceVertexIndex[0].z]);
+	Vector3f normal2(mesh->normalBuffer[faceVertexIndex[1].z]);
+	Vector3f normal3(mesh->normalBuffer[faceVertexIndex[2].z]);
+
 	//cout << "uv1:" << uv1 << endl;
 	//cout << "uv2:" << uv2 << endl;
 	//cout << "uv3:" << uv3 << endl;
@@ -110,8 +115,6 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 	//cout << faceVertexIndex[0].x << endl;
 	//cout << mesh->positionBuffer[faceVertexIndex[0].x] << endl;
 	//cout << mesh->positionBuffer[faceVertexIndex[0].x].x << endl;
-
-	currentTriangle.clear();
 
 	//mvp transformation and viewport transformation
 	//cout << "v ma:" << ViewportMatrix << MVPMatrix << ViewportMatrix * MVPMatrix << endl;
@@ -124,17 +127,18 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 	//cout << "vec1:" << vec1 << endl;
 	//cout << "vec2:" << vec2 << endl;
 	//cout << "vec3:" << vec3 << endl;		
-	currentTriangle.push_back(vec1);
-	currentTriangle.push_back(vec2);
-	currentTriangle.push_back(vec3);
+
+	normal1 = InverseModelMat * normal1;
+	normal2 = InverseModelMat * normal2;
+	normal3 = InverseModelMat * normal3;
 
 	//Calculate the minimum bounding box of a triangle
-	float minX = min(min(currentTriangle[0].x, currentTriangle[1].x), currentTriangle[2].x);
-	float minY = min(min(currentTriangle[0].y, currentTriangle[1].y), currentTriangle[2].y);
-	float maxX = max(max(currentTriangle[0].x, currentTriangle[1].x), currentTriangle[2].x);
-	float maxY = max(max(currentTriangle[0].y, currentTriangle[1].y), currentTriangle[2].y);
+	float minX = min(min(vec1.x, vec2.x), vec3.x);
+	float minY = min(min(vec1.y, vec2.y), vec3.y);
+	float maxX = max(max(vec1.x, vec2.x), vec3.x);
+	float maxY = max(max(vec1.y, vec2.y), vec3.y);
 	
-	//cout << currentTriangle[0].x << "   " << currentTriangle[1].x  << "   " << currentTriangle[2].x << endl;
+	//cout << vec1.x << "   " << vec2.x  << "   " << vec3.x << endl;
 
 
 	//Scan the pixels inside bounding box and determin if it is inside triangle
@@ -144,12 +148,12 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 	Vector2 currentPos(minX / 1, minY / 1);
 	//cout << "currentPos" << currentPos << endl;
 
-	Vector3f triVec_1 = currentTriangle[1] - currentTriangle[0];
-	Vector3f triVec_2 = currentTriangle[2] - currentTriangle[1];
-	Vector3f triVec_3 = currentTriangle[0] - currentTriangle[2];
+	Vector3f triVec_1 = vec2 - vec1;
+	Vector3f triVec_2 = vec3 - vec2;
+	Vector3f triVec_3 = vec1 - vec3;
 	//cout << YCount << endl;
 
-	Vector3f triVec_4 = currentTriangle[2] - currentTriangle[0];
+	Vector3f triVec_4 = vec3 - vec1;
 	float triangleArea = Vector2::Cross(Vector2(triVec_1.x, triVec_1.y), Vector2(triVec_4.x, triVec_4.y));
 	for (int i = 0; i < XCount; i++)
 	{
@@ -157,27 +161,32 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 		for (int j = 0; j < YCount; j++)
 		{
 			// Use cross to see if the point is inside the triangle
-			Vector2 Vec_1 = currentPos - Vector2(currentTriangle[0].x, currentTriangle[0].y);
-			Vector2 Vec_2 = currentPos - Vector2(currentTriangle[1].x, currentTriangle[1].y);
-			Vector2 Vec_3 = currentPos - Vector2(currentTriangle[2].x, currentTriangle[2].y);
+			Vector2 Vec_1 = currentPos - Vector2(vec1.x, vec1.y);
+			Vector2 Vec_2 = currentPos - Vector2(vec2.x, vec2.y);
+			Vector2 Vec_3 = currentPos - Vector2(vec3.x, vec3.y);
 
 			currentPos.y += 1;
 			float triArea1 = Vector2::Cross(Vec_1, Vector2(triVec_1.x, triVec_1.y));
 			float triArea2 = Vector2::Cross(Vec_2, Vector2(triVec_2.x, triVec_2.y));
 			float triArea3 = Vector2::Cross(Vec_3, Vector2(triVec_3.x, triVec_3.y));
 
-			if(triArea1* triArea2 > 0 && triArea1 * triArea3 > 0)
+			if(triArea1* triArea2 >= 0 && triArea1 * triArea3 >= 0)
 			{
 				//Calculate Barycentric Coordinates
 				float gamma1 = triArea2 / triangleArea;
 				float gamma2 = triArea3 / triangleArea;
 				float gamma3 = triArea1 / triangleArea;
 
-				float ZLerp = currentTriangle[0].z * gamma1 + currentTriangle[1].z * gamma2 + currentTriangle[2].z * gamma3;
+				float ZLerp = vec1.z * gamma1 + vec2.z * gamma2 + vec3.z * gamma3;
 				if (ZTest(currentPos.x, currentPos.y, ZLerp, false))
 				{
 					Vector2 uv = uv1 * gamma1 + uv2 * gamma2 + uv3 * gamma3;
+					Vector3f normal = normal1 * gamma1 + normal2 * gamma2 + normal3 * gamma3;
+					normal.Normalize();
+
 					Color pixelCol = mainTex->Sample(uv.x, uv.y);
+					//Half-Lambert
+					pixelCol = pixelCol * (max(0, Vector3f::Dot(dirLight->rotation, normal)) * 0.5 + 0.3);
 					DrawPixel((int)currentPos.x, (int)currentPos.y, RGB(pixelCol.r * 255, pixelCol.g * 255, pixelCol.b * 255));
 				}
 			}
