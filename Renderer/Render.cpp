@@ -186,7 +186,7 @@ void Renderer::DrawSingleMesh(const Mesh* mesh, const vector<Vector3i> faceVerte
 
 					Color pixelCol = mainTex->Sample(uv.x, uv.y);
 					//Half-Lambert
-					pixelCol = pixelCol * (max(0, Vector3f::Dot(dirLight->rotation, normal)) * 0.5 + 0.3);
+					pixelCol = pixelCol * (max(0, Vector3f::Dot(dirLight->rotation, normal)) * 0.5 + 0.5);
 					DrawPixel((int)currentPos.x, (int)currentPos.y, RGB(pixelCol.r * 255, pixelCol.g * 255, pixelCol.b * 255));
 				}
 			}

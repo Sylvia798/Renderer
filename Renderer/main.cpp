@@ -17,7 +17,7 @@ Mesh mesh;
 Camera * camera;
 Renderer * renderer;
 Texture* mainTexture = new Texture();
-DirectionalLight* dirLight = new DirectionalLight(Vector3f(90, 90, 90), 1);
+DirectionalLight* dirLight = new DirectionalLight(Vector3f(45, 45, 45), 1);
 
 void GenerateConsole();
 void Render();
@@ -82,11 +82,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPreInstance, LPSTR lpCmdLine,
 
     GenerateConsole();
     
-    ReadObjFile("C:\\Users\\u1482656\\Renderer\\Assets\\BallNCube.obj", mesh);
-    mainTexture->LoadTexture("C:\\Users\\u1482656\\Renderer\\Assets\\UVGrid.png");
+    //ReadObjFile("C:\\Users\\u1482656\\Renderer\\Assets\\BallNCube.obj", mesh);
+    //mainTexture->LoadTexture("C:\\Users\\u1482656\\Renderer\\Assets\\UVGrid.png");
 
     //ReadObjFile("D:\\Portfolio\\Renderer\\Assets\\Cube.obj", mesh);
     //mainTexture->LoadTexture("D:\\Portfolio\\Renderer\\Assets\\UVGrid.png");
+
+    ReadObjFile("C:\\Users\\u1482656\\Renderer\\Assets\\ponycar\\body.obj", mesh);
+    mainTexture->LoadTexture("C:\\Users\\u1482656\\Renderer\\Assets\\ponycar\\png\\body_basecolor.png");
+
     Render();
 
     //Main message loop
